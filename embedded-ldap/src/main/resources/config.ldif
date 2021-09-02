@@ -1,0 +1,193 @@
+## ____________Domain____________
+
+dn: dc=embedded,dc=ldap
+objectClass: top
+objectClass: domain
+objectClass: extensibleObject
+
+## ____________First level of hierarchy: users and groups____________
+
+## Groups
+dn: ou=groups,dc=embedded,dc=ldap
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+## Users
+dn: ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+## ____________Records____________
+
+## ____________Customers____________
+
+## 1
+dn: login=robert,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Robert
+sn: Smith
+uid: 9a5310f1-ecbd-4bc7-ba8a-37039a1b0063
+login: robert
+userPassword: WP1s>P%
+phone: 323-543-6235
+mail: r.smith@example.com
+ou: Human Resources
+
+## 2
+dn: login=caroline,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Caroline
+sn: Bon
+uid: 5cee7f56-5a36-49e4-ae9a-f4bcd3bc5d38
+login: caroline
+userPassword: v677oY0
+phone: 543-591-9658
+mail: c.bon@example.com
+ou: Human Resources
+
+## ____________Suppliers____________
+
+## 1
+dn: login=jhon,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Jhon
+sn: Covter
+uid: 58466934-eab7-4847-8eec-eec7cde8d38d
+login: jhon
+userPassword: }879{h~
+phone: 432-123-6514
+mail: j.covter@example.com
+ou: Human Resources
+
+## 2
+dn: login=august,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: August
+sn: Sopher
+uid: 0c3e8d48-1cf7-4e76-9fb5-c752ff4bdc0d
+login: august
+userPassword: 55]Is95
+phone: 912-940-8214
+mail: a.sopher@example.com
+ou: Human Resources
+
+## ____________Storekeepers____________
+
+## 1
+dn: login=osvald,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Osvald
+sn: Sezen
+uid: 08594fa4-7b9c-48b7-8406-845f1b338d32
+login: osvald
+userPassword: *7)2Q4}
+phone: 922-322-9000
+mail: o.sezen@example.com
+ou: Human Resources
+
+## 2
+dn: login=ben,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Ben
+sn: Loker
+uid: 055d95cd-e3ca-4a6d-b036-5155d2d44324
+login: ben
+userPassword: t335<28
+phone: 943-232-8432
+mail: b.loker@example.com
+ou: Human Resources
+
+## ____________Admins____________
+
+## 1
+dn: login=rober,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Rober
+sn: Okmen
+uid: fbb1dfc1-881f-4e37-bb7c-4a327379457a
+login: rober
+userPassword: U>531]I
+phone: 999-232-9000
+mail: r.okmen@example.com
+login: zzzz
+ou: Human Resources
+
+## 2
+dn: login=david,ou=users,dc=embedded,dc=ldap
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: David
+sn: Lomsbon
+uid: 7a59ada2-9619-4ab8-832d-f84d2c967991
+login: david
+userPassword: ]K]3;e6
+phone: 663-321-6491
+mail: d.lomsbon@example.com
+ou: Human Resources
+
+## ____________Specific group and their unique members____________
+
+## Customers
+
+dn: cn=customers,ou=groups,dc=embedded,dc=ldap
+objectClass: top
+objectClass: groupOfUniqueNames
+cn: customers
+ou: customer
+uniqueMember: login=robert,ou=users,dc=embedded,dc=ldap
+uniqueMember: login=robert,ou=users,dc=embedded,dc=ldap
+
+## Suppliers
+
+dn: cn=suppliers,ou=groups,dc=embedded,dc=ldap
+objectClass: top
+objectClass: groupOfUniqueNames
+cn: suppliers
+ou: supplier
+uniqueMember: login=jhon,ou=users,dc=embedded,dc=ldap
+uniqueMember: login=august,ou=users,dc=embedded,dc=ldap
+
+## Storekeepers
+
+dn: cn=storekeepers,ou=groups,dc=embedded,dc=ldap
+objectClass: top
+objectClass: groupOfUniqueNames
+cn: storekeepers
+ou: storekeeper
+uniqueMember: login=osvald,ou=users,dc=embedded,dc=ldap
+uniqueMember: login=ben,ou=users,dc=embedded,dc=ldap
+
+## Admins
+
+dn: cn=admins,ou=groups,dc=embedded,dc=ldap
+objectClass: top
+objectClass: groupOfUniqueNames
+cn: admins
+ou: admin
+uniqueMember: login=rober,ou=users,dc=embedded,dc=ldap
+uniqueMember: login=david,ou=users,dc=embedded,dc=ldap

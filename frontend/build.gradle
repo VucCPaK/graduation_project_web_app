@@ -1,0 +1,47 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'ua.kirilogrecha'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.2.9.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway', version: '3.0.1'
+}
+
+processResources {
+}
+
+task npmInstall(type: Exec) {
+	commandLine "npm.cmd", "install"
+}
+
+task npmRunBuild(type: Exec) {
+    commandLine 'npm.cmd', 'run', 'build'
+}
+
+task copyView(type: Copy) {
+	from './src/main/app/index.html'
+	from './src/main/app/w3schools.css'
+	into './build/resources/main/public'
+}
+
+
+compileJava.dependsOn(npmInstall)
+compileJava.dependsOn(processResources)
+compileJava.dependsOn(npmRunBuild)
+compileJava.dependsOn(copyView)
+
+test {
+	useJUnitPlatform()
+}

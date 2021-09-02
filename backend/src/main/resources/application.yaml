@@ -1,0 +1,35 @@
+server:
+  port: 8081
+  address: localhost
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: kiril
+    url: jdbc:postgresql://localhost:5432/project
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  ldap:
+    urls: ldap://localhost:8084
+    base: dc=embedded,dc=ldap
+    username: uid=admin
+    password: secret
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: fb07b0e912c882710244
+            clientSecret: 729982ded8dc123fef84ac854b2241f15d40d1c1
+
+shop:
+  storage: './data/pictures/'
+
