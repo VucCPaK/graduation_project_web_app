@@ -20,8 +20,8 @@
         <div class="text-center">
           Quantity:
           <input class="quantity-text"
-                 v-model.lazy="quantity"
-                 v-on:change="update()">
+                 v-model="quantity">
+          {{ update() }}
         </div>
       </div>
     </div>
@@ -44,29 +44,52 @@ export default {
 
   methods: {
     removeFromCart(id) {
+      // cartService
+      //     .remove(id)
+      //     .then((items) => this.$parent.items = items)
+      //     .then(() =>
+      //         cartService
+      //             .getTotalPrice()
+      //             .then(totalPrice => this.$parent.totalPrice = totalPrice)
+      //     );
+
+      this.$parent.items = cartService.remove(id);
       cartService
-          .remove(id)
-          .then((items) => this.$parent.items = items)
-          .then(() =>
-              cartService
-                  .getTotalPrice()
-                  .then(totalPrice => this.$parent.totalPrice = totalPrice)
-          );
+          .getTotalPrice()
+          .then(totalPrice => this.$parent.totalPrice = totalPrice);
     },
 
     update() {
-      if (this.quantity < 1)
-        this.quantity = 1;
+      setTimeout(() => {
+        if (!Number.isInteger(Number(this.quantity))) {
+          this.quantity = '';
+          return;
+        }
 
-      cartService
-          .updateAmount(this.id, this.quantity)
-          .then(() =>
-              cartService
-                  .getTotalPrice()
-                  .then(totalPrice => this.$parent.totalPrice = totalPrice)
-          );
+        if (this.quantity < 1) {
+          this.quantity = '';
+          return;
+        }
+
+        cartService.updateAmount(this.id, this.quantity);
+        // .then(() =>
+        //     cartService
+        //         .getTotalPrice()
+        //         .then(totalPrice => this.$parent.totalPrice = totalPrice)
+        // );
+        cartService
+            .getTotalPrice()
+            .then(totalPrice => this.$parent.totalPrice = totalPrice);
+      }, 1000);
     },
   },
+
+  watch: {
+    updateAmount: function(oldValue, newValue) {
+      if (this.quantity !== oldValue)
+        this.quantity = newValue;
+    }
+  }
 }
 </script>
 

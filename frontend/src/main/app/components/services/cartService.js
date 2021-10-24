@@ -1,51 +1,59 @@
 import axios from "axios";
 
 export default class CartService {
+    static items = [];
+
     static getList() {
-        return axios
-            .get('http://localhost:8081/api/cart')
-            .then(response => response.data);
+        return this.items;
     }
 
     static remove(id) {
-        return axios
-            .delete(`http://localhost:8081/api/cart/${id}`)
-            .then(response => response.data);
+        this.items = this.items.filter(item => item.id !== id);
+        return this.items;
     }
 
     static add(item) {
-        axios
-            .post(`http://localhost:8081/api/cart/${item.id}`, {
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                epicture: item.epicture
-            });
+        if (this.items.includes(item))
+            return;
+
+        item.quantity = 1;
+        this.items.push(item);
     }
 
     static isPresentInCart(id) {
-        return axios
-            .get(`http://localhost:8081/api/cart/${id}`)
-            .then(response => response.data);
+        return this.items.some(item => item.id === id)
     }
 
     static updateAmount(id, quantity) {
-        return axios
-            .post(`http://localhost:8081/api/cart/amount`, {
-                id: id,
-                quantity: quantity
-            });
+        if (quantity <= 0)
+            return;
+
+        this.items.find(item => item.id === id).quantity = quantity;
     }
 
     static getTotalPrice() {
+        let dCartItems = [];
+        this.items.forEach(item => dCartItems.push(new DCartItem(item.id, item.quantity)));
+
         return axios
-            .get(`http://localhost:8081/api/cart/totalPrice`)
+            .post(`http://localhost:8081/api/cart/totalPrice`, dCartItems)
             .then(response => response.data);
     }
 
     static toOrder() {
+        let dCartItems = [];
+        this.items.forEach(item => dCartItems.push(new DCartItem(item.id, item.quantity)));
+
         axios
-            .get(`http://localhost:8081/api/cart/order`)
+            .post(`http://localhost:8081/api/cart/order`, dCartItems)
             .then(() => console.log("Thank you for your purchase"));
+    }
+
+}
+
+class DCartItem {
+    constructor(id, quantity) {
+        this.id = id;
+        this.quantity = quantity;
     }
 }

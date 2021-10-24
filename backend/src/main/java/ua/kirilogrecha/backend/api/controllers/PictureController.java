@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/items")
+@RequestMapping("/api/picture")
 public class PictureController {
     private final PictureService pictureService;
 
@@ -28,6 +29,7 @@ public class PictureController {
         return pictureService.getPicturesByItemId(iid);
     }
 
+    @PreAuthorize("hasAnyAuthority('admin')")
     @PostMapping("/{iid}/pictures")
     public String saveImage(@PathVariable("iid") String iid, @RequestParam("file") MultipartFile mf) throws IOException {
         return pictureService.saveImage(iid, mf);

@@ -1,52 +1,40 @@
 package ua.kirilogrecha.backend.api.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         http
-                .authorizeRequests()
-                    .antMatchers("/**").permitAll()
-                    .anyRequest().fullyAuthenticated()
-                    .and()
-                .oauth2Login()
-                    .defaultSuccessUrl("http://localhost:8082/")
-                    .and()
-                .formLogin()
-                    .loginPage("http://localhost:8082/sign_in")
-                    .loginProcessingUrl("/perform-login")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-                    .defaultSuccessUrl("http://localhost:8082/")
-                    .failureUrl("http://localhost:8082/sign_in")
-                    .and()
+                .antMatcher("/api/**")
+                .cors().and().csrf().disable()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    .sessionCreationPolicy(SessionCreationPolicy.NEVER)
                     .and()
-                .csrf()
-                    .disable();
+                .oauth2ResourceServer()
+                    .jwt()
+                    .jwtAuthenticationConverter(jwtAuthenticationConverter());
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .ldapAuthentication()
-                    .userDnPatterns("login={0},ou=users")
-                    .contextSource()
-                        .url("ldap://localhost:8084/dc=embedded,dc=ldap")
-                        .and()
-                .passwordCompare()
-                    .passwordEncoder(new BCryptPasswordEncoder())
-                    .passwordAttribute("userPassword");
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthoritiesClaimName("group");
+        grantedAuthoritiesConverter.setAuthorityPrefix("");
+
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
     }
 }

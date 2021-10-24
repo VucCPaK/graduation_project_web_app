@@ -1,5 +1,7 @@
 package ua.kirilogrecha.backend.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,6 +14,9 @@ import java.util.List;
 @Table(name = "item")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class EItem {
     @Id
     @GeneratedValue(generator = "UUID")

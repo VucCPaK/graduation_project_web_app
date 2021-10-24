@@ -160,7 +160,7 @@ objectClass: groupOfUniqueNames
 cn: customers
 ou: customer
 uniqueMember: login=robert,ou=users,dc=embedded,dc=ldap
-uniqueMember: login=robert,ou=users,dc=embedded,dc=ldap
+uniqueMember: login=caroline,ou=users,dc=embedded,dc=ldap
 
 ## Suppliers
 

@@ -79,7 +79,7 @@
 
 <script>
 
-
+import authService from "../../services/authService.js"
 import shopService from "../../services/shopService.js";
 import cartService from "../../services/cartService.js";
 import active_add_button from "./active_add_button.vue";
@@ -105,13 +105,15 @@ export default {
         .then((item) => {
           this.item = item;
           this.src = this.getPictureUrl(this.item.id, this.item.pictures[0]);
-
-          cartService
-              .isPresentInCart(this.item.id)
-              .then((presentInCart) => {
-                this.presentInCart = presentInCart;
-              })
+          // cartService.isPresentInCart(this.item)
+          //     .then((presentInCart) => {
+          //       this.presentInCart = presentInCart;
+          //     })
         });
+  },
+
+  mounted() {
+    this.presentInCart = cartService.isPresentInCart(this.$route.params.id);
   },
 
   methods: {
@@ -128,6 +130,11 @@ export default {
     },
 
     addToCart() {
+      if (authService.getRole() === "anonymous") {
+        console.log("Only an authorized user can add items to the cart!")
+        return;
+      }
+
       cartService.add(this.item);
       // for updating button
       this.presentInCart = true;

@@ -9,10 +9,10 @@
           <!-- Product name-->
           <h6 class="fw-bolder">{{name}}</h6>
           <!-- Product price-->
-          {{price}}$
+          <h6>{{price}}$</h6>
+          <!-- Product actions-->
         </div>
       </div>
-      <!-- Product actions-->
       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center">
           <router-link class="btn btn-outline-dark mt-auto" :to="idToString()">View</router-link>
@@ -36,6 +36,8 @@ export default {
 </script>
 
 <style scoped>
+@import "../../css/shop/styles.css";
+
   .spec-img {
     object-fit: contain;
     width: auto;
@@ -43,6 +45,6 @@ export default {
   }
 
   .spec-container{
-    height: 30px;
+    height: 50px;
   }
 </style>

@@ -12,6 +12,11 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+	imports {
+		mavenBom 'org.keycloak.bom:keycloak-adapter-bom:12.0.3'
+	}
+}
 
 dependencies {
 	annotationProcessor "org.projectlombok:lombok"
@@ -20,10 +25,16 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.security:spring-security-ldap'
-	implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-ldap'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server
+	implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose
+	implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+
 //	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	implementation 'org.postgresql:postgresql:42.2.5'

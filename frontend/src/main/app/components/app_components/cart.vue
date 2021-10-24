@@ -53,14 +53,19 @@ export default {
     }
   },
 
-  beforeCreate() {
+  created() {
+    // cartService
+    //     .getList()
+    //     .then((items) => this.items = items)
+    //     .then(() =>
+    //         cartService
+    //             .getTotalPrice()
+    //             .then((totalPrice) => this.totalPrice = totalPrice));
+    cartService.getList().forEach(item => this.items.push(item));
+
     cartService
-        .getList()
-        .then((items) => this.items = items)
-        .then(() =>
-            cartService
-                .getTotalPrice()
-                .then((totalPrice) => this.totalPrice = totalPrice));
+        .getTotalPrice()
+        .then((totalPrice) => this.totalPrice = totalPrice);
   },
 
   methods: {
@@ -70,6 +75,7 @@ export default {
 
     toOrder() {
       cartService.toOrder();
+      cartService.items.length = 0;
       this.$router.push('/');
     }
   }

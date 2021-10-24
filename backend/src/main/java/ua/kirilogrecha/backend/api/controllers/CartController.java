@@ -2,8 +2,11 @@ package ua.kirilogrecha.backend.api.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import ua.kirilogrecha.backend.api.dto.DCartOrder;
+import ua.kirilogrecha.backend.api.dto.DCartItem;
 import ua.kirilogrecha.backend.api.services.CartService;
 
 import java.math.BigDecimal;
@@ -19,38 +22,42 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @PostMapping("/{id}")
-    public void add(@RequestBody DCartOrder dCartOrder) throws Exception {
-        cartService.add(dCartOrder);
+    @Transactional
+    @PreAuthorize("hasAnyAuthority('admin', 'storekeeper', 'supplier', 'customer')")
+    @PostMapping(value = "/totalPrice")
+    public BigDecimal getTotalPrice(@RequestBody List<DCartItem> items) {
+        return cartService.getTotalPrice(items);
     }
 
-    @DeleteMapping("/{id}")
-    public List<DCartOrder> remove(@PathVariable("id") String id) throws Exception {
-        return cartService.remove(id);
+    @Transactional
+    @PreAuthorize("hasAnyAuthority('admin', 'storekeeper', 'supplier', 'customer')")
+    @PostMapping(value = "/order")
+    public synchronized void toOrder(@RequestBody List<DCartItem> items) {
+        cartService.toOrder(items);
     }
 
-    @GetMapping()
-    public List<DCartOrder> getList() {
-        return cartService.getList();
-    }
-
-    @GetMapping("/{id}")
-    public boolean isPresentInCart(@PathVariable("id") String id) {
-        return cartService.isPresentInCart(id);
-    }
-
-    @PostMapping("/amount")
-    public void updateAmount(@RequestBody DCartOrder dCartOrder) throws Exception {
-        cartService.updateAmount(dCartOrder);
-    }
-
-    @GetMapping(value = "/totalPrice")
-    public BigDecimal getTotalPrice() {
-        return cartService.getTotalPrice();
-    }
-
-    @GetMapping("/order")
-    public synchronized void toOrder() throws Exception {
-        cartService.toOrder();
-    }
+//    @PostMapping("/{id}")
+//    public void add(@RequestBody DCartOrder dCartOrder) throws Exception {
+//        cartService.add(dCartOrder);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public List<DCartOrder> remove(@PathVariable("id") String id) throws Exception {
+//        return cartService.remove(id);
+//    }
+//
+//    @GetMapping()
+//    public List<DCartOrder> getList() {
+//        return cartService.getList();
+//    }
+//
+//    @GetMapping("/{id}")
+//    public boolean isPresentInCart(@PathVariable("id") String id) {
+//        return cartService.isPresentInCart(id);
+//    }
+//
+//    @PostMapping("/amount")
+//    public void updateAmount(@RequestBody DCartOrder dCartOrder) throws Exception {
+//        cartService.updateAmount(dCartOrder);
+//    }
 }

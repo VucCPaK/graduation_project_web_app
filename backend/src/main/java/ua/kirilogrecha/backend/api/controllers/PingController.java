@@ -1,11 +1,13 @@
 package ua.kirilogrecha.backend.api.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/ping")
 public class PingController {
-    @GetMapping("/api/ping")
+    @GetMapping()
     public String ping() {
         return "pong";
     }
