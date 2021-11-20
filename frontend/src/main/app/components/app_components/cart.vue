@@ -24,7 +24,7 @@
                 v-bind:name="item.name"
                 v-bind:price="item.price"
                 v-bind:quant="item.quantity"
-                v-bind:picture="getPictureUrl(item.id, item.epicture)"
+                v-bind:picture="getPictureUrl(item.id, item.pictures[0])"
             />
           </div>
         </div>
@@ -41,6 +41,7 @@
 import icon_commodity_cart from "./cart_components/icon_commodity_cart.vue";
 import cartService from "../services/cartService.js";
 import shopService from "../services/shopService.js";
+import authService from "../services/authService";
 
 export default {
   name: "cart",
@@ -74,6 +75,12 @@ export default {
     },
 
     toOrder() {
+      if (authService.getRole() === "anonymous") {
+        console.log("Only an authorized user can order!")
+        window.location.href = "http://localhost:8085/auth/realms/my_realm/protocol/openid-connect/auth?client_id=my_client&response_type=code&redirect_uri=http://localhost:8082";
+        return;
+      }
+
       cartService.toOrder();
       cartService.items.length = 0;
       this.$router.push('/');

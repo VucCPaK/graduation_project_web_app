@@ -44,15 +44,6 @@ export default {
 
   methods: {
     removeFromCart(id) {
-      // cartService
-      //     .remove(id)
-      //     .then((items) => this.$parent.items = items)
-      //     .then(() =>
-      //         cartService
-      //             .getTotalPrice()
-      //             .then(totalPrice => this.$parent.totalPrice = totalPrice)
-      //     );
-
       this.$parent.items = cartService.remove(id);
       cartService
           .getTotalPrice()
@@ -72,11 +63,6 @@ export default {
         }
 
         cartService.updateAmount(this.id, this.quantity);
-        // .then(() =>
-        //     cartService
-        //         .getTotalPrice()
-        //         .then(totalPrice => this.$parent.totalPrice = totalPrice)
-        // );
         cartService
             .getTotalPrice()
             .then(totalPrice => this.$parent.totalPrice = totalPrice);
@@ -96,7 +82,7 @@ export default {
 <style scoped>
 
 .spec-container {
-  height: 30px;
+  height: 50px;
 }
 
 .contain-img {

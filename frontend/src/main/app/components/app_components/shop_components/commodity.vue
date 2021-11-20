@@ -79,7 +79,6 @@
 
 <script>
 
-import authService from "../../services/authService.js"
 import shopService from "../../services/shopService.js";
 import cartService from "../../services/cartService.js";
 import active_add_button from "./active_add_button.vue";
@@ -130,11 +129,6 @@ export default {
     },
 
     addToCart() {
-      if (authService.getRole() === "anonymous") {
-        console.log("Only an authorized user can add items to the cart!")
-        return;
-      }
-
       cartService.add(this.item);
       // for updating button
       this.presentInCart = true;

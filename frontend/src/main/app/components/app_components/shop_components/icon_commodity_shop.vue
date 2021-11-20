@@ -15,7 +15,8 @@
       </div>
       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center">
-          <router-link class="btn btn-outline-dark mt-auto" :to="idToString()">View</router-link>
+          <router-link class="btn btn-outline-dark mt-auto" :to="toItem()">View</router-link>
+          <router-link v-if="checkCredentials()" class="btn btn-outline-dark mt-auto" :to="toSupply()">Edit</router-link>
         </div>
       </div>
     </div>
@@ -23,14 +24,25 @@
 </template>
 
 <script>
+import authService from '../../services/authService.js'
+
 export default {
   name: "icon_commodity_shop",
-  props: ['id', 'name', 'price', 'picture'],
+  props: ['id', 'name', 'price', 'picture', 'supplierId'],
 
   methods: {
-    idToString() {
+    toItem() {
       return `/shop/${this.id}`
-    }
+    },
+
+    toSupply() {
+      return `/shop/supply/${this.id}`
+    },
+
+    checkCredentials() {
+      return (authService.getRole() === 'supplier' && authService.getUserId() === this.supplierId)
+          || authService.getRole() === 'admin'
+    },
   }
 }
 </script>

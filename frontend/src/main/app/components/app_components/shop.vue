@@ -10,6 +10,9 @@
           <p class="lead fw-normal text-white-50 mb-0">With this shop homepage template</p>
         </div>
       </div>
+      <div class="d-flex justify-content-center">
+        <router-link v-if="checkCredentials()" class="btn btn-primary" :to="toCreateItem()">Add new item</router-link>
+      </div>
     </header>
 
     <!-- Section-->
@@ -21,7 +24,8 @@
                 v-bind:id='item.id'
                 v-bind:name='item.name'
                 v-bind:price='item.price'
-                v-bind:picture='getPictureUrl(item.id, item.epicture)'
+                v-bind:picture='getPictureUrl(item.id, item.pictures[0])'
+                v-bind:supplierId="item.supplierId"
             />
           </div>
         </div>
@@ -37,6 +41,7 @@
 <script>
 import icon_commodity_shop from "./shop_components/icon_commodity_shop.vue";
 import shopService from "../services/shopService.js"
+import authService from "../services/authService";
 
 export default {
   components: {icon_commodity_shop},
@@ -58,11 +63,20 @@ export default {
   methods: {
     getPictureUrl(itemId, itemEPicture) {
       return shopService.getPictureUrl(itemId, itemEPicture)
-    }
+    },
+
+    toCreateItem() {
+      return `/shop/supply/item/new`;
+    },
+
+    checkCredentials() {
+      return authService.getRole() === 'supplier' || authService.getRole() === 'admin'
+    },
   }
 }
 </script>
 
 <style scoped>
 @import '../css/shop/styles.css';
+@import "~bootstrap/dist/css/bootstrap.min.css";
 </style>

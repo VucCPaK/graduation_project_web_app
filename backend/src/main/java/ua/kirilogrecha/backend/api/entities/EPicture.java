@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "picture")
+@Table(name = "pictures")
 @Getter
 @Setter
 @JsonIdentityInfo(
@@ -19,10 +19,13 @@ public class EPicture {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id", nullable = false)
     private EItem eItem_ManyToOne;
 
-    @OneToOne(mappedBy = "ePicture")
-    private EItem eItem_OneToOne;
+    @Column(name = "priority", nullable = false, columnDefinition = "serial")
+    private Long priority;
+
+//    @OneToOne(mappedBy = "ePicture", cascade = CascadeType.ALL)
+//    private EItem eItem_OneToOne;
 }

@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 import ua.kirilogrecha.backend.api.dto.DCartItem;
-import ua.kirilogrecha.backend.api.entities.EItemsInOrder;
+import ua.kirilogrecha.backend.api.entities.EOrderItem;
 import ua.kirilogrecha.backend.api.entities.EOrder;
 import ua.kirilogrecha.backend.api.repositories.ItemRepository;
-import ua.kirilogrecha.backend.api.repositories.ItemsInOrderRepository;
+import ua.kirilogrecha.backend.api.repositories.OrderItemRepository;
 import ua.kirilogrecha.backend.api.repositories.OrderRepository;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,15 +24,15 @@ import java.util.stream.Collectors;
 public class CartService {
     private ItemRepository itemRepository;
     private OrderRepository orderRepository;
-    private ItemsInOrderRepository itemsInOrderRepository;
+    private OrderItemRepository orderItemRepository;
 
     @Autowired
     public CartService(ItemRepository itemRepository,
                        OrderRepository orderRepository,
-                       ItemsInOrderRepository itemsInOrderRepository) {
+                       OrderItemRepository orderItemRepository) {
         this.itemRepository = itemRepository;
         this.orderRepository = orderRepository;
-        this.itemsInOrderRepository = itemsInOrderRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     public BigDecimal getTotalPrice(List<DCartItem> items) {
@@ -72,15 +71,14 @@ public class CartService {
     private void createEOrderEntity(List<DCartItem> items) {
         EOrder eOrder = new EOrder();
 
-        List<EItemsInOrder> list = items.stream().
+        List<EOrderItem> list = items.stream().
                 map(item -> {
-                    EItemsInOrder eItemsInOrder = new EItemsInOrder();
-                    eItemsInOrder.setEOrder(eOrder);
-                    eItemsInOrder.setItemId(item.getId());
-                    eItemsInOrder.setQuantity(item.getQuantity());
-                    eItemsInOrder.setPrice(itemRepository.findById(item.getId()).get().getPrice()); // get price from 'item' table
+                    EOrderItem eOrderItem = new EOrderItem();
+                    eOrderItem.setEOrder(eOrder);
+                    eOrderItem.setEItem(itemRepository.findById(item.getId()).get());
+                    eOrderItem.setQuantity(item.getQuantity());
 
-                    return eItemsInOrder;
+                    return eOrderItem;
                 })
         .collect(Collectors.toList());
 
@@ -88,7 +86,7 @@ public class CartService {
         eOrder.setItems(list);
 
         orderRepository.save(eOrder);
-        list.forEach(eItemsInOrder -> itemsInOrderRepository.save(eItemsInOrder));
+        list.forEach(eItemsInOrder -> orderItemRepository.save(eItemsInOrder));
     }
 
 //    // check

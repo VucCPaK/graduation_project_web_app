@@ -12,10 +12,14 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<EOrder, String> {
     @Transactional
     @Modifying
-    @Query(value = "update EOrder set isSent = true where id = :id")
-    void updateIsSentField(@Param("id") String id);
+    @Query(value = "update EOrder set isSent = :sent where id = :id")
+    void updateIsSentField(@Param("id") String id, @Param("sent") boolean sent);
 
     @Transactional
     @Query(value = "select eOrder from EOrder eOrder where eOrder.isSent = false ")
     List<EOrder> getList();
+
+    @Transactional
+    @Query(value = "select eOrder from EOrder eOrder where eOrder.userId = :id")
+    List<EOrder> getListByUserId(@Param("id") String id);
 }

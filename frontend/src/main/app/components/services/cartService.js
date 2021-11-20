@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class CartService {
-    static items = [];
+    static items = JSON.parse(localStorage.getItem('cartItems'));
 
     static getList() {
         return this.items;
@@ -18,6 +18,7 @@ export default class CartService {
 
         item.quantity = 1;
         this.items.push(item);
+        localStorage.setItem('cartItems', JSON.stringify(this.items));
     }
 
     static isPresentInCart(id) {
@@ -47,6 +48,8 @@ export default class CartService {
         axios
             .post(`http://localhost:8081/api/cart/order`, dCartItems)
             .then(() => console.log("Thank you for your purchase"));
+
+        this.items.length = 0;
     }
 
 }

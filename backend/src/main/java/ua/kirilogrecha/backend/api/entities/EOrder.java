@@ -1,8 +1,6 @@
 package ua.kirilogrecha.backend.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +38,10 @@ public class EOrder {
     private boolean isSent;
 
     @OneToMany(mappedBy = "eOrder", fetch = FetchType.EAGER)
-    private List<EItemsInOrder> items;
+    private Collection<EOrderItem> items;
+
+    @Column(name = "user", nullable = false)
+    private String userId;
 
     public EOrder() {
         this.date = new Date();

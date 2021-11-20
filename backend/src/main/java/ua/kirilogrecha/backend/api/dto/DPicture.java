@@ -8,7 +8,7 @@ import lombok.Setter;
 public class DPicture {
     private String name;
     private Long itemId;
-    private Long mainId;
+    private Long priority;
 
     public DPicture() {
     }

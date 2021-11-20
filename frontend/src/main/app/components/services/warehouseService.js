@@ -7,21 +7,14 @@ export default class WarehouseService {
             .then(response => response.data);
     }
 
-    static submit(updatedItems) {
-        let items = [];
-
-        updatedItems
-            .filter(item => item.sent === true)
-            .forEach(item => items.push(new DWarehouseItem(item.id)));
-
+    static submit(id) {
         return axios
-            .post("http://localhost:8081/api/warehouse/item", items)
-            .then(response => response.data)
+            .post(`http://localhost:8081/api/warehouse/${id}?sent=true`);
     }
-}
 
-class DWarehouseItem {
-    constructor(id) {
-        this.id = id;
+    static getItemsInOrder(id) {
+        return axios
+            .get(`http://localhost:8081/api/warehouse/${id}`)
+            .then(response => response.data)
     }
 }

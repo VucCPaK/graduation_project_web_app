@@ -2,11 +2,6 @@
   <div>
     <div class="navig">
       <component v-bind:is="component"/>
-      <!--      <router-link class="a_left" to="/">HOME</router-link>-->
-      <!--      <router-link class="a_left" to="/shop">SHOP</router-link>-->
-      <!--      <router-link class="a_right" to="/cart">CART</router-link>-->
-      <!--      <router-link class="a_right" to="/cabinet">CABINET</router-link>-->
-      <!--      <a class="a_right" href="http://localhost:8085/auth/realms/my_realm/protocol/openid-connect/auth?client_id=my_client&response_type=code&redirect_uri=http://localhost:8082">SIGN IN</a>-->
     </div>
     <router-view></router-view>
   </div>
@@ -32,11 +27,8 @@ export default {
   },
 
   mounted() {
-    authService.updateAccessToken().then(() =>
-        authService.handleCallback().then(() => {
-          this.component = () => this.loader()
-        })
-    );
+    authService.refreshToken()
+        .then(() => this.component = () => this.loader());
   }
 }
 </script>

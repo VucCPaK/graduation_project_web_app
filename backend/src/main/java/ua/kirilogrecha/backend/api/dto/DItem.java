@@ -15,9 +15,9 @@ public class DItem {
     private Integer amount;
     private String description;
     private List<String> pictures;
-    private String ePicture;
     private String categories;
     private String type;
+    private String supplierId;
 
     public DItem() {
     }

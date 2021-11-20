@@ -2,6 +2,7 @@ package ua.kirilogrecha.backend.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ua.kirilogrecha.backend.api.dto.DItem;
 import ua.kirilogrecha.backend.api.services.ItemService;
@@ -30,4 +31,17 @@ public class ItemController {
         return itemService.getItemById(id);
     }
 
+    @Transactional
+    @PreAuthorize("hasAnyAuthority('admin', 'supplier')")
+    @PostMapping("/{id}")
+    public void updateItem(@PathVariable String id, @RequestBody DItem dItem) {
+        itemService.updateItem(id, dItem);
+    }
+
+    @Transactional
+    @PreAuthorize("hasAnyAuthority('admin', 'supplier')")
+    @PostMapping("/new")
+    public String newItem(@RequestBody DItem dItem) {
+        return itemService.newItem(dItem);
+    }
 }

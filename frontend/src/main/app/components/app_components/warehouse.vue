@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div class="container px-4 px-lg-5 my-5">
-      <label for="order-search">Search the order:</label>
-      <input type="search" id="order-search" name="q"
-             aria-label="Search through site content">
-      <button>Search</button>
-    </div>
-
     <div>
       <table class="table table-striped">
         <thead>
@@ -22,15 +15,17 @@
         <tr v-for="item in items">
           <td>{{ item.id }}</td>
           <td>{{ item.date }}</td>
-          <td>{{ item.totalPrice }}</td>
-          <td>{{ item.items }}</td>
-          <td><input type="checkbox" v-model="item.sent"></td>
+          <td>{{ item.totalPrice }}$</td>
+          <td><router-link class="btn btn-primary btn-sm"
+                           role="button"
+                           aria-disabled="true"
+                           :to="idToString(item.id)">View items</router-link></td>
+          <td><button type="button"
+                      class="btn btn-primary btn-sm"
+                      v-on:click="submit(item.id)">Confirm</button></td>
         </tr>
         </tbody>
       </table>
-      <div class="btn">
-        <button v-on:click="submit(items)">Submit</button>
-      </div>
     </div>
   </div>
 </template>
@@ -56,12 +51,20 @@ export default {
   },
 
   methods: {
-    submit(updatedItems) {
+    submit(id) {
       warehouseService
-          .submit(updatedItems)
-          .then((items) => {
-            this.items = items;
+          .submit(id)
+          .then(() => {
+            warehouseService
+                .getList()
+                .then((items) => {
+                  this.items = items;
+                })
           });
+    },
+
+    idToString(id) {
+      return `/warehouse/${id}`;
     }
   }
 
@@ -71,12 +74,4 @@ export default {
 <style scoped>
 @import '../css/shop/styles.css';
 @import '~bootstrap/dist/css/bootstrap.min.css';
-
-.btn {
-  position: absolute;
-  right: 2%;
-  margin-top: 2%;
-  transform: translate(0%, -50%);
-  -ms-transform: translate(0%, -50%)
-}
 </style>

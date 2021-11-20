@@ -23,14 +23,14 @@ public class CartController {
     }
 
     @Transactional
-    @PreAuthorize("hasAnyAuthority('admin', 'storekeeper', 'supplier', 'customer')")
+    @PreAuthorize("permitAll()")
     @PostMapping(value = "/totalPrice")
     public BigDecimal getTotalPrice(@RequestBody List<DCartItem> items) {
         return cartService.getTotalPrice(items);
     }
 
     @Transactional
-    @PreAuthorize("hasAnyAuthority('admin', 'storekeeper', 'supplier', 'customer')")
+    @PreAuthorize("permitAll()")
     @PostMapping(value = "/order")
     public synchronized void toOrder(@RequestBody List<DCartItem> items) {
         cartService.toOrder(items);

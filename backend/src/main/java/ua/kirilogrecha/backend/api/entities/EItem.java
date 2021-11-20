@@ -8,10 +8,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 @Getter
 @Setter
 @JsonIdentityInfo(
@@ -38,16 +38,22 @@ public class EItem {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "main_picture", referencedColumnName = "name")
-    private EPicture ePicture;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "main_picture")
+//    private EPicture ePicture;
 
-    @OneToMany(mappedBy = "eItem_ManyToOne", fetch = FetchType.EAGER)
-    private List<EPicture> pictures;
+    @OneToMany(mappedBy = "eItem_ManyToOne", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Collection<EPicture> pictures;
+
+    @OneToMany(mappedBy = "eItem", cascade = CascadeType.ALL)
+    private Collection<EOrderItem> eOrderItems;
 
     @Column(name = "categories", nullable = false)
     private String categories;
 
     @Column(name = "type", nullable = false)
     private String type;
+
+    @Column(name = "supplier", nullable = false)
+    private String supplierId;
 }

@@ -1,19 +1,18 @@
-package ua.kirilogrecha.backend.api.services;
+package ua.kirilogrecha.backend.api.services.converters;
 
 import org.springframework.stereotype.Service;
 import ua.kirilogrecha.backend.api.dto.DItem;
 
 import ua.kirilogrecha.backend.api.entities.EItem;
-import ua.kirilogrecha.backend.api.entities.EOrder;
 import ua.kirilogrecha.backend.api.entities.EPicture;
 
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ConverterService {
-    public ConverterService() {
+public class ItemConverterService {
+    public ItemConverterService() {
     }
 
     public DItem fromEItemToDItem(EItem eItem) {
@@ -24,10 +23,12 @@ public class ConverterService {
         dItem.setPrice(eItem.getPrice());
         dItem.setAmount(eItem.getAmount());
         dItem.setDescription(eItem.getDescription());
-        dItem.setEPicture(eItem.getEPicture().getName());
+//        dItem.setEPicture(eItem.getEPicture().getName());
         dItem.setCategories(eItem.getCategories());
         dItem.setType(eItem.getType());
+        dItem.setSupplierId(eItem.getSupplierId());
         dItem.setPictures(eItem.getPictures().stream()
+                .sorted(Comparator.comparingLong(EPicture::getPriority))
                 .map(EPicture::getName)
                 .collect(Collectors.toList()));
 
@@ -39,10 +40,4 @@ public class ConverterService {
                 .map(this::fromEItemToDItem)
                 .collect(Collectors.toList());
     }
-
-//    public EOrder fromDCartItemToDOrder() {
-//        var eOrder = new EOrder();
-//
-//
-//    }
 }
