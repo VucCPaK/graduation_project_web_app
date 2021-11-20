@@ -48,7 +48,6 @@ public class PictureService {
     }
 
 
-
     public List<String> getPicturesByItemId(String id) {
         return pictureRepository.findByItemId(id).stream()
                 .map(EPicture::getName)
