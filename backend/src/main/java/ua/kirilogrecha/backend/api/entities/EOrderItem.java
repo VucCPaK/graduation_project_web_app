@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
-public class EItemsInOrder {
+public class EOrderItem {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
