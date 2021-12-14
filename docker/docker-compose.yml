@@ -1,0 +1,91 @@
+version: "3.7"
+
+services:
+  backend:
+    image: 'backend'
+    ports:
+      - 8081:8081
+#    build:
+#      context: ../backend/docker/Dockerfile
+    container_name: backend
+    depends_on:
+      - postgresdb
+      - keycloak
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/project
+#      - SPRING_DATASOURCE_USERNAME=postgres
+#      - SPRING_DATASOURCE_PASSWORD=kiril
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+
+  frontend:
+    image: 'frontend'
+    ports:
+      - 8082:8082
+#    build:
+#      context: ../frontend/docker/Dockerfile
+    container_name: frontend
+
+  embedded-ldap:
+    image: 'embedded-ldap'
+    ports:
+      - 8083:8083
+#    build:
+#      context: ../embedded-ldap/docker/Dockerfile
+    container_name: embedded-ldap
+    depends_on:
+      - ldap
+
+  pictures:
+    image: 'pictures'
+    ports:
+      - 8087:8087
+#    build:
+#      context: ../pictures/docker/Dockerfile
+    container_name: pictures
+    depends_on:
+      - mongodb
+      - keycloak
+#    environment:
+#      - SPRING_DATASOURCE_URI=mongodb://mongo:mongo@localhost:27017/pictures
+
+  gateway:
+    image: 'gateway'
+    ports:
+      - 8086:8086
+#    build:
+#      context: ../gateway/docker/Dockerfile
+    container_name: gateway
+
+  keycloak:
+    image: 'bitnami/keycloak:latest'
+    ports:
+      - 8085:8085
+    container_name: keycloak
+
+  ldap:
+    image: 'ldapaccountmanager/lam:latest'
+    ports:
+      - 8084:8084
+    container_name: ldap
+    environment:
+      - BASE_DN=dc=embedded,dc=ldap
+      - LDAP_USERNAME=uid=admin
+      - LDAP_PASSWORD=secret
+
+  mongodb:
+    image: 'mongo:latest'
+    ports:
+      - 27017:27017
+    container_name: mongodb
+    environment:
+      - MONGO_USER=mongo
+      - MONGO_PASSWORD=mongo
+
+  postgresdb:
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    container_name: postgresdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=kiril
