@@ -1,20 +1,21 @@
 import axios from "axios";
+import VALUES from "./VALUES.js";
 
 export default class WarehouseService {
     static getList() {
         return axios
-            .get("http://localhost:8081/api/warehouse")
+            .get(`${VALUES.GATEWAY}/api/backend/warehouse`)
             .then(response => response.data);
     }
 
     static submit(id) {
         return axios
-            .post(`http://localhost:8081/api/warehouse/${id}?sent=true`);
+            .post(`${VALUES.GATEWAY}/api/backend/warehouse/${id}?sent=true`);
     }
 
     static getItemsInOrder(id) {
         return axios
-            .get(`http://localhost:8081/api/warehouse/${id}`)
+            .get(`${VALUES.GATEWAY}/api/backend/warehouse/${id}`)
             .then(response => response.data)
     }
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -38,9 +38,9 @@ public class EOrder {
     private boolean isSent;
 
     @OneToMany(mappedBy = "eOrder", fetch = FetchType.EAGER)
-    private Collection<EOrderItem> items;
+    private Set<EOrderItem> items;
 
-    @Column(name = "user", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private String userId;
 
     public EOrder() {

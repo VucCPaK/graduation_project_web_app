@@ -5,14 +5,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.multipart.MultipartFile;
 
 import ua.kirilogrecha.backend.api.services.PictureService;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping("/api/picture")
+@RequestMapping("/api/backend/pictures")
 public class PictureController {
     private final PictureService pictureService;
 
@@ -28,15 +28,14 @@ public class PictureController {
 
     @PreAuthorize("hasAnyAuthority('admin', 'supplier')")
     @PostMapping("/{iid}")
-    public void saveImage(@PathVariable("iid") String iid, @RequestParam("files") MultipartFile[] mf) {
-        pictureService.saveImageToDB(iid, mf);
+    public void saveImage(@PathVariable("iid") String iid, @RequestBody String[] nameOfPictures) {
+        pictureService.saveImageToDB(iid, nameOfPictures);
     }
 
     @PreAuthorize("hasAnyAuthority('admin', 'supplier')")
     @PostMapping("/{iid}/priority")
-    public void changeMainPicture(@RequestParam("firstName") String firstName,
-                                  @RequestParam("secondName") String secondName) {
-        pictureService.swapWeight(firstName, secondName);
+    public void changePriorities(@PathVariable("iid") String iid, @RequestBody List<String> newPriorities) {
+        pictureService.changePriorities(iid, newPriorities);
     }
 
     @PreAuthorize("hasAnyAuthority('admin', 'supplier')")
@@ -44,10 +43,4 @@ public class PictureController {
     public void removeImage(@RequestBody String[] names) {
         pictureService.removeImageFromDB(names);
     }
-
-    @GetMapping(value = "/{iid}/pictures/{pid}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public Resource getPictureById(@PathVariable("pid") String pid) {
-        return pictureService.getPictureById(pid);
-    }
-
 }

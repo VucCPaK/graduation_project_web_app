@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/api/backend/cart")
 public class CartController {
     private final CartService cartService;
 
@@ -31,9 +31,9 @@ public class CartController {
 
     @Transactional
     @PreAuthorize("permitAll()")
-    @PostMapping(value = "/order")
-    public synchronized void toOrder(@RequestBody List<DCartItem> items) {
-        cartService.toOrder(items);
+    @PostMapping(value = "/order/{userId}")
+    public synchronized void toOrder(@RequestBody List<DCartItem> items, @PathVariable String userId) {
+        cartService.toOrder(items, userId);
     }
 
 //    @PostMapping("/{id}")

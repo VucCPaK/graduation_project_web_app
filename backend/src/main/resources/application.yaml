@@ -35,6 +35,6 @@ spring:
 #            clientId: fb07b0e912c882710244
 #            clientSecret: 729982ded8dc123fef84ac854b2241f15d40d1c1
 
-shop:
-  storage: './data/pictures/'
+#shop:
+#  storage: './data/pictures/'
 

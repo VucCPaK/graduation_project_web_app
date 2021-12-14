@@ -14,15 +14,15 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
-axios.interceptors.response.use(function (response) {
-    return response;
-}, function (error) {
-    if (authService.isRefreshTokenPresent()) {
-        authService.updateAccessToken();
-        return;
-    }
-    return Promise.reject(error);
-});
+// axios.interceptors.response.use(function (response) {
+//     return response;
+// }, function (error) {
+//     if (authService.isRefreshTokenPresent()) {
+//         authService.updateAccessToken();
+//         return;
+//     }
+//     return Promise.reject(error);
+// });
 
 new Vue({
     router,

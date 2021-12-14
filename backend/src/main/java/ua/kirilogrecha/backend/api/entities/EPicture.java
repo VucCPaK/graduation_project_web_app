@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 
@@ -24,8 +26,6 @@ public class EPicture {
     private EItem eItem_ManyToOne;
 
     @Column(name = "priority", nullable = false, columnDefinition = "serial")
+    @Generated(GenerationTime.INSERT)
     private Long priority;
-
-//    @OneToOne(mappedBy = "ePicture", cascade = CascadeType.ALL)
-//    private EItem eItem_OneToOne;
 }

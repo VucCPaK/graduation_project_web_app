@@ -10,7 +10,7 @@ import ua.kirilogrecha.backend.api.services.WarehouseService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/warehouse")
+@RequestMapping("/api/backend/warehouse")
 public class WarehouseController {
     private final WarehouseService warehouseService;
 

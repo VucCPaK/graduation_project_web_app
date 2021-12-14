@@ -10,7 +10,7 @@ import ua.kirilogrecha.backend.api.services.ItemService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/item")
+@RequestMapping("/api/backend/item")
 public class ItemController {
     private final ItemService itemService;
 

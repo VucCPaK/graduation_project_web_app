@@ -28,8 +28,8 @@
                 <br/>
                 <ul class="slides images-scrollbar wrapper">
                   <li v-for="img in getPictures()">
-                    <img class="indent spec-img" :src="getPictureUrl(item.id, img)" alt="..."
-                         v-on:click="changeImage(getPictureUrl(item.id, img))"/>
+                    <img class="indent spec-img" :src="getPictureUrl(img)" alt="..."
+                         v-on:click="changeImage(getPictureUrl(img))"/>
                   </li>
                   <!-- items mirrored twice, total of 12 -->
                 </ul>
@@ -103,7 +103,7 @@ export default {
         .getItemById(this.$route.params.id)
         .then((item) => {
           this.item = item;
-          this.src = this.getPictureUrl(this.item.id, this.item.pictures[0]);
+          this.src = this.getPictureUrl(this.item.pictures[0]);
           // cartService.isPresentInCart(this.item)
           //     .then((presentInCart) => {
           //       this.presentInCart = presentInCart;

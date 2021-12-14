@@ -24,7 +24,7 @@
                 v-bind:name="item.name"
                 v-bind:price="item.price"
                 v-bind:quant="item.quantity"
-                v-bind:picture="getPictureUrl(item.id, item.pictures[0])"
+                v-bind:picture="getPictureUrl(item.pictures[0])"
             />
           </div>
         </div>
@@ -70,8 +70,8 @@ export default {
   },
 
   methods: {
-    getPictureUrl(itemId, itemEPicture) {
-      return shopService.getPictureUrl(itemId, itemEPicture);
+    getPictureUrl(itemEPicture) {
+      return shopService.getPictureUrl(itemEPicture);
     },
 
     toOrder() {
@@ -81,7 +81,7 @@ export default {
         return;
       }
 
-      cartService.toOrder();
+      cartService.toOrder(authService.getUserId());
       cartService.items.length = 0;
       this.$router.push('/');
     }

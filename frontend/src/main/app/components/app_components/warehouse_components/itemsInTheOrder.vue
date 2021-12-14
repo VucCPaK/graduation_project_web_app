@@ -9,7 +9,7 @@
       </thead>
       <tbody>
       <tr v-for="item in items">
-        <td><img class="card-img-top spec-img" :src="getPictureUrl(item.itemid, item.epicture)" alt="..."/></td>
+        <td><img class="card-img-top spec-img" :src="getPictureUrl(item.pictures[0])" alt="..."/></td>
         <td>
           <p><strong>Type: </strong>{{ item.type }}</p>
           <p><strong>Name: </strong>{{ item.name }}</p>
@@ -44,8 +44,8 @@ export default {
   },
 
   methods: {
-    getPictureUrl(itemId, itemEPicture) {
-      return shopService.getPictureUrl(itemId, itemEPicture)
+    getPictureUrl(itemEPicture) {
+      return shopService.getPictureUrl(itemEPicture)
     }
   }
 }

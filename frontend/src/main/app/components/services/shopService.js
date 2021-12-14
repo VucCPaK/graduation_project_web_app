@@ -1,20 +1,20 @@
 import axios from "axios";
+import VALUES from "./VALUES.js";
 
 export default class ShopService {
-
     static getListOfItems() {
         return axios
-            .get('http://localhost:8081/api/item')
+            .get(`${VALUES.GATEWAY}/api/backend/item`)
             .then(response => response.data);
     }
 
     static getItemById(id) {
         return axios
-            .get(`http://localhost:8081/api/item/${id}`)
+            .get(`${VALUES.GATEWAY}/api/backend/item/${id}`)
             .then((response) => response.data);
     }
 
-    static getPictureUrl(id, epicture) {
-        return `http://localhost:8081/api/picture/${id}/pictures/${epicture}`;
+    static getPictureUrl(epicture) {
+        return `${VALUES.GATEWAY}/api/mongo/pictures/${epicture}`;
     }
 }

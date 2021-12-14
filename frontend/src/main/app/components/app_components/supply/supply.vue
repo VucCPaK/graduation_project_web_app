@@ -33,13 +33,17 @@
       <div class="mb-3">
         <ul class="slides images-scrollbar wrapper">
           <li v-for="img in item.pictures">
-            <img class="indent spec-img" :src="getPictureUrl(item.id, img)" alt="..."/>
+            <img class="indent spec-img" :src="getPictureUrl(img)" alt="..."/>
             <button class="btn-cls" v-on:click="removeFromPictures(img)">X</button>
             <div class="justify-content-center" style="width: 128px; height: 26px">
-              <input class="form-check-input radio-but" type="radio" name="mainPicture" v-on:click="changeMainPicture(img)">
+              <button class="button-prev" v-on:click="leftSwap(img)">
+                <
+              </button>
+              <button class="button-next" v-on:click="rightSwap(img)">
+                >
+              </button>
             </div>
           </li>
-          <!-- items mirrored twice, total of 12 -->
         </ul>
       </div>
       <div class="mb-3">
@@ -55,13 +59,11 @@ import shopService from "../../services/shopService.js";
 
 export default {
   name: "supply",
-
   data() {
     return {
       item: {},
-      picturesToDelete: [],
       files: '',
-      newMainPicture: '',
+      picturesToDelete: []
     }
   },
 
@@ -76,17 +78,8 @@ export default {
       this.files = this.$refs.files.files;
     },
 
-    changeMainPicture(img) {
-      this.newMainPicture = img;
-    },
-
-    getPictureUrl(itemId, itemEPicture) {
-      return shopService.getPictureUrl(itemId, itemEPicture);
-    },
-
-    removeFromPictures(img) {
-      this.item.pictures = this.item.pictures.filter(picId => picId !== img);
-      this.picturesToDelete.push(img);
+    getPictureUrl(itemEPicture) {
+      return shopService.getPictureUrl(itemEPicture);
     },
 
     submit() {
@@ -105,13 +98,46 @@ export default {
         if (this.picturesToDelete.length !== 0)
           supplyService.removeImages(this.picturesToDelete);
 
-        if (this.item.pictures[0] !== this.newMainPicture)
-          supplyService.swapPriority(this.item.id, this.newMainPicture, this.item.pictures[0]);
-      })
+        supplyService.changePriorities(this.item.id, this.item.pictures);
+      }).then(() => this.$router.push(`/shop`));
 
-      this.$router.push(`/shop`);
+    },
 
-    }
+    // work with pictures
+    leftSwap(img) {
+      let imgIndex = this.item.pictures.indexOf(img);
+
+      if (imgIndex === 0) {
+        console.log("err");
+        return;
+      }
+
+      let temp = this.item.pictures[imgIndex - 1];
+      this.item.pictures[imgIndex - 1] = img;
+      this.item.pictures[imgIndex] = temp;
+
+      this.$forceUpdate();
+    },
+
+    rightSwap(img) {
+      let imgIndex = this.item.pictures.indexOf(img);
+
+      if (imgIndex === this.item.pictures.length - 1) {
+        console.log("err");
+        return;
+      }
+
+      let temp = this.item.pictures[imgIndex + 1];
+      this.item.pictures[imgIndex + 1] = img;
+      this.item.pictures[imgIndex] = temp;
+
+      this.$forceUpdate();
+    },
+
+    removeFromPictures(img) {
+      this.item.pictures = this.item.pictures.filter(picId => picId !== img);
+      this.picturesToDelete.push(img);
+    },
   }
 }
 
@@ -130,8 +156,13 @@ export default {
   display: flex;
 }
 
-.radio-but {
-  margin-left: 60px;
+.button-prev {
+  height: auto;
+  margin-left: 40px;
+}
+
+.button-next {
+  height: auto;
 }
 
 .slides {

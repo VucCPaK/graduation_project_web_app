@@ -1,8 +1,6 @@
-export default class AuthService {
-    static KEYCLOAK_DOMAIN = "localhost:8085";
-    static CLIENT_ID = "my_client"
-    static REDIRECT_URI = "http://localhost:8082";
+import VALUES from "./VALUES.js";
 
+export default class AuthService {
     static async handleCallback() {
         const search = new URLSearchParams(window.location.search);
         if (!search.has('code')) {
@@ -16,8 +14,8 @@ export default class AuthService {
         const tokenSet = await fetch(config.token_endpoint, {
             method: 'POST',
             body: new URLSearchParams({
-                client_id: this.CLIENT_ID,
-                redirect_uri: this.REDIRECT_URI,
+                client_id: VALUES.CLIENT_ID,
+                redirect_uri: VALUES.REDIRECT_URI,
                 grant_type: 'authorization_code',
                 code: code,
             }),
@@ -40,8 +38,9 @@ export default class AuthService {
     };
 
     static async getConfig() {
+        let domain = VALUES.KEYCLOAK_DOMAIN;
         const response = await fetch(
-            `http://${this.KEYCLOAK_DOMAIN}/auth/realms/my_realm/.well-known/openid-configuration`);
+            `http://${domain}/auth/realms/my_realm/.well-known/openid-configuration`);
         return response.json();
     }
 
@@ -91,8 +90,8 @@ export default class AuthService {
             const tokenSet = await fetch(config.token_endpoint, {
                 method: 'POST',
                 body: new URLSearchParams({
-                    client_id: this.CLIENT_ID,
-                    redirect_uri: this.REDIRECT_URI,
+                    client_id: VALUES.CLIENT_ID,
+                    redirect_uri: VALUES.REDIRECT_URI,
                     grant_type: 'refresh_token',
                     refresh_token: refreshToken
                 }),

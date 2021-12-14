@@ -1,5 +1,6 @@
 package ua.kirilogrecha.backend.api.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,7 @@ import ua.kirilogrecha.backend.api.services.CabinetService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cabinet")
+@RequestMapping("/api/backend/cabinet")
 public class CabinetController {
     private final CabinetService cabinetService;
 

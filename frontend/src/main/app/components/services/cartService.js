@@ -1,4 +1,5 @@
 import axios from "axios";
+import VALUES from "./VALUES.js";
 
 export default class CartService {
     static items = JSON.parse(localStorage.getItem('cartItems'));
@@ -9,6 +10,7 @@ export default class CartService {
 
     static remove(id) {
         this.items = this.items.filter(item => item.id !== id);
+        localStorage.setItem('cartItems', JSON.stringify(this.items));
         return this.items;
     }
 
@@ -37,17 +39,17 @@ export default class CartService {
         this.items.forEach(item => dCartItems.push(new DCartItem(item.id, item.quantity)));
 
         return axios
-            .post(`http://localhost:8081/api/cart/totalPrice`, dCartItems)
+            .post(`${VALUES.GATEWAY}/api/backend/cart/totalPrice`, dCartItems)
             .then(response => response.data);
     }
 
-    static toOrder() {
+    static toOrder(userId) {
         let dCartItems = [];
         this.items.forEach(item => dCartItems.push(new DCartItem(item.id, item.quantity)));
 
         axios
-            .post(`http://localhost:8081/api/cart/order`, dCartItems)
-            .then(() => console.log("Thank you for your purchase"));
+            .post(`${VALUES.GATEWAY}/api/backend/cart/order/${userId}`, dCartItems)
+            .then(() => console.log("Thank you for purchase"));
 
         this.items.length = 0;
     }

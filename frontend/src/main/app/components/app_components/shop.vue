@@ -24,7 +24,7 @@
                 v-bind:id='item.id'
                 v-bind:name='item.name'
                 v-bind:price='item.price'
-                v-bind:picture='getPictureUrl(item.id, item.pictures[0])'
+                v-bind:picture='getPictureUrl(item.pictures[0])'
                 v-bind:supplierId="item.supplierId"
             />
           </div>
@@ -61,8 +61,8 @@ export default {
   },
 
   methods: {
-    getPictureUrl(itemId, itemEPicture) {
-      return shopService.getPictureUrl(itemId, itemEPicture)
+    getPictureUrl(itemEPicture) {
+      return shopService.getPictureUrl(itemEPicture)
     },
 
     toCreateItem() {

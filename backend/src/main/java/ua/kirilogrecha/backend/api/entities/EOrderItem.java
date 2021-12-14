@@ -24,14 +24,14 @@ public class EOrderItem {
     )
     private String id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id", nullable = false)
     private EItem eItem;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", nullable = false)
     private EOrder eOrder;
 }

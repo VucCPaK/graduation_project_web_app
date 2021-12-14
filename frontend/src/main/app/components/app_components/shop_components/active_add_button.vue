@@ -9,7 +9,7 @@ export default {
 
   methods: {
     addToCart() {
-      this.$parent.addToCart()
+      this.$parent.addToCart();
     }
   }
 }

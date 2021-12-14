@@ -1,42 +1,46 @@
 import axios from "axios";
+import VALUES from "./VALUES.js";
 
 export default class {
     static updateItem(id, item) {
-        return  axios
-            .post(`http://localhost:8081/api/item/${id}`,
+        return axios
+            .post(`${VALUES.GATEWAY}/api/backend/item/${id}`,
                 new DItem(item.name, item.price, item.amount, item.description,
                     item.pictures, item.categories, item.type, item.supplierId));
     }
 
     static addImages(id, formData) {
         axios
-            .post(`http://localhost:8081/api/picture/${id}`,
+            .post(`${VALUES.GATEWAY}/api/mongo/pictures`,
                 formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }
-            );
+            ).then((ids) => {
+                axios.post(`${VALUES.GATEWAY}/api/backend/pictures/${id}`, ids.data)
+            }
+        )
     }
 
-    static swapPriority(id, firstName, secondName) {
+
+    static changePriorities(id, array) {
         axios
-            .post(`http://localhost:8081/api/picture/${id}/priority?firstName=${firstName}&secondName=${secondName}`);
+            .post(`${VALUES.GATEWAY}/api/backend/pictures/${id}/priority`, array);
     }
 
     static removeImages(pictures) {
         axios
-            .post(`http://localhost:8081/api/picture/deletion`, pictures);
+            .post(`${VALUES.GATEWAY}/api/mongo/pictures/deletion`, pictures);
     }
 
     static createItem(itemProperties) {
         return axios
-            .post(`http://localhost:8081/api/item/new`,
+            .post(`${VALUES.GATEWAY}/api/backend/item/new`,
                 new DItem(itemProperties.name, itemProperties.price, itemProperties.amount, itemProperties.description,
                     itemProperties.pictures, itemProperties.categories, itemProperties.type, itemProperties.supplierId))
     }
 }
-
 
 
 class DItem {

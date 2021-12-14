@@ -13,7 +13,7 @@ import ua.kirilogrecha.backend.api.repositories.OrderItemRepository;
 import ua.kirilogrecha.backend.api.repositories.OrderRepository;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -51,7 +51,7 @@ public class CartService {
                         .reduce(BigDecimal.valueOf(0), BigDecimal::add);
     }
 
-    public void toOrder(List<DCartItem> items) {
+    public void toOrder(List<DCartItem> items, String userId) {
         // check all restrictions
         // ...
         boolean examination = items.stream()
@@ -61,17 +61,18 @@ public class CartService {
                         .getAmount() >= dco.getQuantity());
 
         if (examination) {
-            createEOrderEntity(items);
+            createEOrderEntity(items, userId);
             items.forEach(item -> itemRepository.updateAmount(item.getId(), item.getQuantity()));
         } else {
             throw new RuntimeException("We don't have that many products");
         }
     }
 
-    private void createEOrderEntity(List<DCartItem> items) {
+    private void createEOrderEntity(List<DCartItem> items, String userId) {
         EOrder eOrder = new EOrder();
 
-        List<EOrderItem> list = items.stream().
+        // using Set that avoid duplicate records
+        Set<EOrderItem> list = items.stream().
                 map(item -> {
                     EOrderItem eOrderItem = new EOrderItem();
                     eOrderItem.setEOrder(eOrder);
@@ -80,10 +81,11 @@ public class CartService {
 
                     return eOrderItem;
                 })
-        .collect(Collectors.toList());
+        .collect(Collectors.toCollection(HashSet::new));
 
         eOrder.setTotalPrice(getTotalPrice(items));
         eOrder.setItems(list);
+        eOrder.setUserId(userId);
 
         orderRepository.save(eOrder);
         list.forEach(eItemsInOrder -> orderItemRepository.save(eItemsInOrder));
