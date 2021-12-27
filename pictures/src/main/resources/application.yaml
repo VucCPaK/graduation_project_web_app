@@ -1,14 +1,21 @@
 server:
   port: 8087
-  address: localhost
+  address: 0.0.0.0
+
+  # 0.0.0.0 for docker
+  # 192.168.42.111 for docker
+
+  # localhost for localhost
+
+  # named as service
 
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:mongo@localhost:27017/pictures
+      uri: mongodb://mongo:mongo@mongodb:27017/pictures
 
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8085/auth/realms/my_realm
+          issuer-uri: http://keycloak:8080/auth/realms/my_realm

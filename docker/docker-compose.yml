@@ -1,91 +1,82 @@
-version: "3.7"
+version: "3.9"
 
 services:
   backend:
     image: 'backend'
     ports:
       - 8081:8081
-#    build:
-#      context: ../backend/docker/Dockerfile
     container_name: backend
-    depends_on:
-      - postgresdb
-      - keycloak
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/project
-#      - SPRING_DATASOURCE_USERNAME=postgres
-#      - SPRING_DATASOURCE_PASSWORD=kiril
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+#    depends_on:
+#      - postgresdb
+#      - keycloak
 
   frontend:
     image: 'frontend'
     ports:
       - 8082:8082
-#    build:
-#      context: ../frontend/docker/Dockerfile
     container_name: frontend
 
   embedded-ldap:
     image: 'embedded-ldap'
     ports:
-      - 8083:8083
-#    build:
-#      context: ../embedded-ldap/docker/Dockerfile
+      - 8083:8084
     container_name: embedded-ldap
-    depends_on:
-      - ldap
 
   pictures:
     image: 'pictures'
     ports:
       - 8087:8087
-#    build:
-#      context: ../pictures/docker/Dockerfile
     container_name: pictures
-    depends_on:
-      - mongodb
-      - keycloak
-#    environment:
-#      - SPRING_DATASOURCE_URI=mongodb://mongo:mongo@localhost:27017/pictures
+#    depends_on:
+#      - mongodb
+#      - keycloak
 
   gateway:
     image: 'gateway'
     ports:
       - 8086:8086
-#    build:
-#      context: ../gateway/docker/Dockerfile
     container_name: gateway
 
   keycloak:
-    image: 'bitnami/keycloak:latest'
+    image: 'jboss/keycloak:latest'
     ports:
-      - 8085:8085
+      - 8080:8080
     container_name: keycloak
-
-  ldap:
-    image: 'ldapaccountmanager/lam:latest'
-    ports:
-      - 8084:8084
-    container_name: ldap
+#    command: ["-Djboss.http.port=8085"]
+#    depends_on:
+#      - postgresdb
     environment:
-      - BASE_DN=dc=embedded,dc=ldap
-      - LDAP_USERNAME=uid=admin
-      - LDAP_PASSWORD=secret
+      - DB_ADDR=postgresdb
+      - DB_PORT=5432
+      - DB_DATABASE=keycloak
+      - DB_USER=postgres
+      - DB_PASSWORD=kiril
+      - DB_VENDOR=postgres
+#      - KEYCLOAK_USER=admin
+#      - KEYCLOAK_PASSWORD=admin
+#      - PROXY_ADDRESS_FORWARDING=true
+      - KEYCLOAK_FRONTEND_URL=http://keycloak:8080/auth
 
   mongodb:
-    image: 'mongo:latest'
+    image: 'mongo:4.0.6'
     ports:
       - 27017:27017
     container_name: mongodb
     environment:
-      - MONGO_USER=mongo
-      - MONGO_PASSWORD=mongo
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    volumes:
+      - C:/Users/Kiril/Desktop/mongodb/linuxData:/data/db
+      - C:/Users/Kiril/Desktop/mongodb/mongodb-database-tools-windows-x86_64-100.5.1/bin/dump/pictures:/var/dump
 
   postgresdb:
-    image: 'postgres:latest'
+    image: 'postgres:13.2'
     ports:
       - 5432:5432
     container_name: postgresdb
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=kiril
+      - LANG=en_US.UTF-8
+    volumes:
+      - C:/Users/Kiril/Desktop/pgsql/linuxData:/var/lib/postgresql/data

@@ -38,9 +38,7 @@ export default class AuthService {
     };
 
     static async getConfig() {
-        let domain = VALUES.KEYCLOAK_DOMAIN;
-        const response = await fetch(
-            `http://${domain}/auth/realms/my_realm/.well-known/openid-configuration`);
+        const response = await fetch(`${VALUES.GATEWAY}/auth/realms/${VALUES.REALM_ID}/.well-known/openid-configuration`);
         return response.json();
     }
 

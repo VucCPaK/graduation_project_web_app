@@ -1,6 +1,10 @@
 server:
   port: 8082
-  address: localhost
+  address: 0.0.0.0
+
+  # 0.0.0.0 for docker
+  # 192.168.42.111 for docker
+  # localhost for localhost
 
 #spring:
 #  security:
@@ -9,4 +13,4 @@ server:
 #        registration:
 #          github:
 #            clientId: github-client-id
-#            clientSecret: github-client-secret
+#            clientSecret: github-cient-secret
