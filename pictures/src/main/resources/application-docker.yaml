@@ -2,17 +2,10 @@ server:
   port: 8087
   address: 0.0.0.0
 
-  # 0.0.0.0 for docker
-  # 192.168.42.111 for docker
-
-  # localhost for localhost
-
-  # named as service
-
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:mongo@mongodb:27017/pictures
+      uri: mongodb://mongo:mongo@mongodb:27017/picture
 
   security:
     oauth2:

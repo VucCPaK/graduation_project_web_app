@@ -1,12 +1,6 @@
 server:
   port: 8086
-  address: 0.0.0.0
-
-  # 0.0.0.0 for docker
-  # 192.168.42.111 for docker
-  # localhost for localhost
-
-  # named as service
+  address: localhost
 
 spring:
   cloud:
@@ -21,19 +15,19 @@ spring:
         add-to-simple-url-handler-mapping: true
       routes:
         - id: backend
-          uri: http://backend:8081/
+          uri: http://localhost:8081/
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           predicates:
             - Path=/api/backend/**
         - id: pictures
-          uri: http://pictures:8087
+          uri: http://localhost:8087/
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           predicates:
             - Path=/api/mongo/**
         - id: keycloak
-          uri: http://keycloak:8080
+          uri: http://localhost:8080/
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           predicates:

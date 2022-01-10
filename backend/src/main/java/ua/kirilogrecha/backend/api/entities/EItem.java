@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 @Table(name = "items")
@@ -36,12 +35,8 @@ public class EItem {
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "text")
     private String description;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "main_picture")
-//    private EPicture ePicture;
 
     @OneToMany(mappedBy = "eItem_ManyToOne", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<EPicture> pictures;

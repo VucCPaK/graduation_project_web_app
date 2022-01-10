@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <div class="navig">
       <component v-bind:is="component"/>

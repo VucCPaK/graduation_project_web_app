@@ -1,0 +1,14 @@
+server:
+  port: 8087
+  address: localhost
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo@localhost:27017/picture
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/my_realm

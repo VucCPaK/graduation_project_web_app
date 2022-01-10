@@ -1,0 +1,15 @@
+server:
+  port: 8083
+  address: 0.0.0.0
+
+spring:
+  ldap:
+    embedded:
+      base-dn: dc=embedded,dc=ldap
+      credential:
+        username: uid=admin
+        password: secret
+      ldif: classpath:config.ldif
+      port: 8084
+      validation:
+        enabled: false

@@ -1,0 +1,20 @@
+server:
+  port: 8081
+  address: 0.0.0.0
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password:
+    url: jdbc:postgresql://postgresdb:5432/project
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/auth/realms/my_realm

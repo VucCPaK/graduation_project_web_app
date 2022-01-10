@@ -1,5 +1,5 @@
 const path = require('path');
-const { VueLoaderPlugin } = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader');
 
 module.exports = {
     resolve: {
@@ -41,11 +41,14 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [['@babel/preset-env', {
-                            targets: {
-                                esmodules: true
-                            }
-                        }]]
+                        presets: ['@babel/preset-env'],
+                        plugins: [
+                            ["@babel/transform-runtime",
+                                {
+                                    helpers: false
+                                }
+                            ]
+                        ]
                     }
                 }
             }

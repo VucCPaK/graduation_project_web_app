@@ -1,23 +1,15 @@
 server:
   port: 8081
-  address: 0.0.0.0
-
-  # 0.0.0.0 for docker
-  # 192.168.42.111 for docker
-
-  # localhost for localhost
-
-  # named as service
+  address: localhost
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: kiril
-    url: jdbc:postgresql://postgresdb:5432/project
+    password: 
+    url: jdbc:postgresql://localhost:5432/project
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    generate-ddl: true
     hibernate:
       ddl-auto: none
     show-sql: true
@@ -25,4 +17,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/auth/realms/my_realm
+          issuer-uri: http://localhost:8080/auth/realms/my_realm
