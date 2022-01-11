@@ -24,10 +24,6 @@ public class PictureService {
         this.itemRepository = itemRepository;
     }
 
-//    // save picture to folder
-//    @Value("${shop.storage}")
-//    private String PATH_TO_PICTURES;
-
     // iid - item id
     public void changePriorities(String iid, List<String> newPriorities) {
         List<Long> picturesPriority = itemRepository

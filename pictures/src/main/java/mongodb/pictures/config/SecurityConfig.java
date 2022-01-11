@@ -19,11 +19,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatcher("/api/**")
                 .cors().and().csrf().disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
-                .and()
+                    .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+                    .and()
                 .oauth2ResourceServer()
-                .jwt()
-                .jwtAuthenticationConverter(jwtAuthenticationConverter());
+                    .jwt()
+                    .jwtAuthenticationConverter(jwtAuthenticationConverter());
     }
 
     @Bean

@@ -25,10 +25,6 @@ public class WarehouseController {
         return warehouseService.getList();
     }
 
-    // TODO
-    //CHANGE "item" to "{id}"
-    //BODY "{sent:true}"
-    //RETURNS: NONE
     @PreAuthorize("hasAnyAuthority('admin', 'storekeeper')")
     @PostMapping("/{id}")
     public void updateIsSent(@PathVariable String id, @RequestParam("sent") Boolean sent) {

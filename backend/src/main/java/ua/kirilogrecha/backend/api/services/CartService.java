@@ -91,49 +91,4 @@ public class CartService {
         list.forEach(eItemsInOrder -> orderItemRepository.save(eItemsInOrder));
     }
 
-//    // check
-//    public void add(DCartOrder dco) throws Exception {
-//        if (items.stream().anyMatch(itemOrder -> itemOrder.getId().equals(dco.getId())))
-//            throw new Exception("This element is already in the list");
-//
-//        items.add(dco);
-//    }
-//
-//    // check
-//    public List<DCartOrder> remove(String id) throws Exception {
-//        DCartOrder dCartOrder = items.stream()
-//                .filter(dco -> dco.getId().equals(id))
-//                .findAny()
-//                .orElse(null);
-//
-//        if (dCartOrder == null)
-//            throw new Exception("This element is not in the list");
-//
-//        items.remove(dCartOrder);
-//        return items;
-//    }
-//
-//    public List<DCartOrder> getList() {
-//        return items;
-//    }
-//
-//    // check
-//    public boolean isPresentInCart(String id) {
-//        return items.stream()
-//                .anyMatch(dco -> dco.getId().equals(id));
-//    }
-//
-//    // check
-//    public void updateAmount(DCartOrder dCartOrder) throws Exception {
-//        // check all restrictions
-//        // ...
-//        if (dCartOrder.getQuantity() <= 0)
-//            throw new Exception("Please enter the correct quantity");
-//
-//        items.stream()
-//                .filter(dco -> dco.getId().equals(dCartOrder.getId()))
-//                .findAny()
-//                .get()
-//                .setQuantity(dCartOrder.getQuantity());
-//    }
 }

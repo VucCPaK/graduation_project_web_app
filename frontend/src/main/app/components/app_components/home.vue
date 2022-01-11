@@ -37,25 +37,6 @@
 
     <p></p>
 
-    <!-- About Container -->
-    <!--        <div class="w3-container w3-dark-gray w3-padding-64 w3-grayscale w3-xlarge">-->
-    <!--            <div class="w3-content">-->
-    <!--                <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">About</h1>-->
-    <!--                <p>A central processing unit (CPU), also called a central processor, main processor or just processor,-->
-    <!--                    is the electronic circuitry that executes instructions comprising a computer program. The CPU-->
-    <!--                    performs basic arithmetic, logic, controlling, and input/output (I/O) operations specified by the-->
-    <!--                    instructions in the program. This contrasts with external components such as main memory and I/O-->
-    <!--                    circuitry, and specialized processors such as graphics processing units (GPUs).</p>-->
-    <!--                <p><strong>The CPU</strong> <img src="../pictures/CPU.jpg" style="width:150px"-->
-    <!--                                                 class="w3-circle w3-right" alt="CPU"></p>-->
-    <!--                <p>We proud of our processors.</p>-->
-    <!--                <img src="../pictures/about.jpg" style="width:100%" class="w3-margin-top w3-margin-bottom" alt="Restaurant">-->
-    <!--            </div>-->
-    <!--        </div>-->
-
-
-    <!--        <p></p>-->
-
     <!-- Contact -->
     <div class="w3-container w3-padding-16 w3-grayscale-min w3-tiny">
       <div class="w3-content">

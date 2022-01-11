@@ -24,9 +24,6 @@ export default class AuthService {
             })
         }).then(r => r.json());
 
-        //this has access_token, id_token, expires_in, scope, token_type.
-        // console.dir(tokenSet);
-
         window.sessionStorage.setItem('token_type', tokenSet.token_type);
         window.localStorage.setItem('refresh_token', tokenSet.refresh_token);
         window.sessionStorage.setItem('access_token', tokenSet.access_token);
@@ -69,7 +66,6 @@ export default class AuthService {
         return value;
     }
 
-
     static parseJwt(token) {
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -98,29 +94,11 @@ export default class AuthService {
                 })
             }).then(r => r.json());
 
-            // console.dir(tokenSet)
-
             window.localStorage.setItem('refresh_token', tokenSet.refresh_token);
             window.sessionStorage.setItem('token_type', tokenSet.token_type);
             window.sessionStorage.setItem('access_token', tokenSet.access_token);
-
-            //remove the querystring from the url in the address bar
-            // const url = new URL(window.location);
-            // url.search = '';
-            // window.history.pushState('', document.title, url);
         }
     }
-
-    // static isAccessTokenAlive() {
-    //     let accessToken = sessionStorage.getItem('access_token');
-    //
-    //     if (!accessToken || accessToken === 'undefined')
-    //         return false;
-    //
-    //     let parsedToken = this.parseJwt(accessToken);
-    //
-    //     return (parsedToken.exp > Date.now() / 1000);
-    // }
 
     static isRefreshTokenPresent() {
         let refreshToken = localStorage.getItem('refresh_token');
@@ -133,7 +111,6 @@ export default class AuthService {
         window.sessionStorage.removeItem('token_type');
         window.sessionStorage.removeItem('access_token');
     }
-
 
     // lifetime of token - 3 min
     static async refreshToken() {

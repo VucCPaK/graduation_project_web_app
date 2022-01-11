@@ -42,6 +42,7 @@ import icon_commodity_cart from "./cart_components/icon_commodity_cart.vue";
 import cartService from "../services/cartService.js";
 import shopService from "../services/shopService.js";
 import authService from "../services/authService";
+import VALUES from "../services/VALUES.js";
 
 export default {
   name: "cart",
@@ -55,13 +56,6 @@ export default {
   },
 
   created() {
-    // cartService
-    //     .getList()
-    //     .then((items) => this.items = items)
-    //     .then(() =>
-    //         cartService
-    //             .getTotalPrice()
-    //             .then((totalPrice) => this.totalPrice = totalPrice));
     cartService.getList().forEach(item => this.items.push(item));
 
     cartService
@@ -77,7 +71,7 @@ export default {
     toOrder() {
       if (authService.getRole() === "anonymous") {
         console.log("Only an authorized user can order!")
-        window.location.href = "http://localhost:8085/auth/realms/my_realm/protocol/openid-connect/auth?client_id=my_client&response_type=code&redirect_uri=http://localhost:8082";
+        window.location.href = `${VALUES.GATEWAY}/auth/realms/${VALUES.REALM_ID}/protocol/openid-connect/auth?client_id=${VALUES.CLIENT_ID}&response_type=code&redirect_uri=${VALUES.REDIRECT_URI}`;
         return;
       }
 
