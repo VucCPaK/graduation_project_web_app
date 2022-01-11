@@ -13,6 +13,40 @@ Before we start we need several servers such as PostgreSQL (13.5), Keycloak (16.
 * For PostgreSQL we use default user.
 * For MongoDB we need to create a new user 'mongo' with password 'mongo'.
 * For Keycloak first you need to create new realm with name 'my_realm'. Create new client with name 'my_client'.Another configuration ... . 
-* ```
-* 
-* ```
+* ``` git clone https://github.com/vuccpak/graduation_project.git ```
+* Run Frontend:
+```
+cd graduation_project\frontend
+.\gradlew build
+java -jar .\build\libs\frontend-0.0.1-SNAPSHOT.jar --spring.profile.active=localhost
+```
+* Run Backend:
+```
+cd graduation_project\backend
+.\gradlew build
+java -jar .\build\libs\backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost 
+```
+* Run Embedded-ldap:
+```
+cd graduation_project\embedded-ldap
+.\mvnw package
+java -jar .\target\embedded-ldap-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost
+```
+* Run Gateway:
+```
+cd graduation_project\gateway
+.\mvnw package
+java -jar .\target\gateway-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost      
+```
+* Run Pictures:
+```
+cd graduation_project\pictures
+.\mvnw package
+java -jar .\target\pictures-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost      
+```
+
+
+
+
+
+
