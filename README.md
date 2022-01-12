@@ -12,7 +12,7 @@ Before we start we need several servers such as PostgreSQL (13.5), Keycloak (16.
 * Starts servers with default port PostgreSQL, Keycloak, MongoDB.
 * For PostgreSQL we use default user.
 * For MongoDB we need to create a new user 'mongo' with password 'mongo'.
-* For Keycloak first you need to create new realm with name 'my_realm'. Create new client with name 'my_client'.Another configuration ... . 
+* For Keycloak first you need to create new realm with name 'my_realm'. Create new client with name 'my_client'.Another configuration in screenshots you can find at the end of README. 
 * ``` git clone https://github.com/vuccpak/graduation_project.git ```
 * Run Frontend:
 ```
