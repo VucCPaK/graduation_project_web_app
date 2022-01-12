@@ -12,7 +12,7 @@ Before we start we need several servers such as PostgreSQL (13.5), Keycloak (16.
 * Starts servers with default port PostgreSQL, Keycloak, MongoDB.
 * For PostgreSQL we use default user.
 * For MongoDB we need to create a new user 'mongo' with password 'mongo'.
-* For Keycloak first you need to create new realm with name 'my_realm'. Create new client with name 'my_client'.Another configuration in screenshots you can find at the end of README. 
+* For Keycloak first you need to create new realm with name 'my_realm'. Create new client with name 'my_client'. Another configuration you can find at the end of README.
 * ``` git clone https://github.com/vuccpak/graduation_project.git ```
 * Run Frontend:
 ```
@@ -45,7 +45,8 @@ cd graduation_project\pictures
 java -jar .\target\pictures-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost      
 ```
 
-
+# Keycloak r[realm-export.zip](https://github.com/VucCPaK/graduation_project/files/7854378/realm-export.zip)
+ealm configuration 
 
 
 
