@@ -45,8 +45,9 @@ cd graduation_project\pictures
 java -jar .\target\pictures-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost      
 ```
 
-# Keycloak r[realm-export.zip](https://github.com/VucCPaK/graduation_project/files/7854378/realm-export.zip)
-ealm configuration 
+# Keycloak realm configuration 
+[realm-export.zip](https://github.com/VucCPaK/graduation_project/files/7854378/realm-export.zip)
+
 
 
 
