@@ -45,6 +45,8 @@ cd graduation_project\pictures
 java -jar .\target\pictures-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhost      
 ```
 
+## Note
+Some features not completed and need revisions: main page, docker, css (switch all project on bootstrap).
 
 
 
