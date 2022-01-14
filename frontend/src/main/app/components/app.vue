@@ -15,6 +15,7 @@ export default {
 
   data() {
     return {
+      // user that will be loaded
       component: null
     }
   },
@@ -44,6 +45,11 @@ export default {
   color: black;
 }
 
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
 .a_left {
   float: left;
   color: #f2f2f2;
@@ -62,10 +68,5 @@ export default {
   text-decoration: none;
   font-size: 17px;
   margin-right: 20px;
-}
-
-body {
-  margin: 0;
-  font-family: sans-serif;
 }
 </style>

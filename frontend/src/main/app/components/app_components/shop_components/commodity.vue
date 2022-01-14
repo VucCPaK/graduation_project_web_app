@@ -64,9 +64,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="copyright-text">
-                  <p>Copyright &copy; 2019 Company Name - Design: <a rel="nofollow"
-                                                                     href="https://www.facebook.com/tooplate">Tooplate</a>
-                  </p>
+                  <p>Copyright &copy; Shop 2021</p>
                 </div>
               </div>
             </div>
@@ -78,7 +76,6 @@
 </template>
 
 <script>
-
 import shopService from "../../services/shopService.js";
 import cartService from "../../services/cartService.js";
 import active_add_button from "./active_add_button.vue";
@@ -143,7 +140,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../css/commodity/bootstrap.min.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 @import "../../css/commodity/flex-slider.css";
 @import "../../css/commodity/owl.css";
 @import "../../css/commodity/tooplate-main.css";

@@ -7,7 +7,6 @@ import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
@@ -19,12 +18,10 @@ import java.util.stream.Stream;
 @Service
 public class PictureService {
     private final PictureRepository pictureRepository;
-    private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public PictureService(PictureRepository pictureRepository, MongoTemplate mongoTemplate) {
+    public PictureService(PictureRepository pictureRepository) {
         this.pictureRepository = pictureRepository;
-        this.mongoTemplate = mongoTemplate;
     }
 
     public Collection<String> savePictureToDB(MultipartFile[] mf) {
@@ -56,9 +53,6 @@ public class PictureService {
                     Picture p = pictureRepository.findById(id).get();
                     pictureRepository.delete(p);
                 });
-
-        //        Stream.of(ids)
-        //                .forEach(pictureRepository::deleteById);
     }
 
 
