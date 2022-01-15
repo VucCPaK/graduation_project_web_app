@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../css/shop/styles.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
   .spec-img {
     object-fit: contain;

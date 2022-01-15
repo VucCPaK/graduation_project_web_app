@@ -1,6 +1,5 @@
 <template>
   <div>
-    <router-view/>
 
     <!-- Header-->
     <header class="bg-dark py-5">
@@ -31,10 +30,6 @@
         </div>
       </div>
     </section>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-      <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Shop 2021</p></div>
-    </footer>
   </div>
 </template>
 
@@ -77,6 +72,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../css/shop/styles.css';
 @import "bootstrap/dist/css/bootstrap.min.css";
 </style>

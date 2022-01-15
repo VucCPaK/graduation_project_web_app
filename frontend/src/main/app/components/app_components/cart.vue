@@ -9,7 +9,6 @@
           <p class="lead fw-normal text-white mb-0">Total price: <span>{{ totalPrice }}$</span>
             <button class="button" v-on:click="toOrder()">ORDER</button>
           </p>
-
         </div>
       </div>
     </header>
@@ -30,10 +29,6 @@
         </div>
       </div>
     </section>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark footer">
-      <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Shop 2021</p></div>
-    </footer>
   </div>
 </template>
 
@@ -84,13 +79,7 @@ export default {
 </script>
 
 <style scoped>
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 .button {
   margin-left: 15px;
