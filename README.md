@@ -10,8 +10,8 @@ Before we start we need several servers such as PostgreSQL (13.5), Keycloak (16.
 
 ## Running for localhost:
 * Starts servers with default port PostgreSQL, Keycloak, MongoDB.
-* For PostgreSQL we use default user.
-* For MongoDB we need to create a new user 'mongo' with password 'mongo'.
+* For PostgreSQL we use default user. Create database "project".
+* For MongoDB we need to create a new user 'mongo' with password 'mongo'. Create database "pictures".
 * For Keycloak download this archive [realm-export.zip](https://github.com/VucCPaK/graduation_project/files/7854396/realm-export.zip) then log into keycloak Admin account and import file.  
 * ``` git clone https://github.com/vuccpak/graduation_project.git ```
 * Run Frontend:
