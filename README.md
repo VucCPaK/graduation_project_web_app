@@ -46,7 +46,7 @@ java -jar .\target\pictures-0.0.1-SNAPSHOT.jar --spring.profiles.active=localhos
 ```
 
 ## Note
-Some features not completed and need revisions: docker, css (switch all project on bootstrap).
+Some features not completed and need revisions: docker, css (switch whole project on bootstrap).
 
 
 
