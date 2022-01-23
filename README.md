@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Shop is my graduation project. And also was developed for teaching new technologies and improving skills in known. The whole project consist from different microservices. Interaction between microservices going via gateway as separate microservice. Product that visible on the site and their description keep in PostgreSQL and their pictures keep in MongoDB. Application can interact with user data via Keycloak that connected to one of the microservices and keep users in Active Directory (embedded in spring) and exchanged data via LDAP.
+Shop is my graduation project. And also was developed for teaching new technologies and improving skills in known. The whole project consist from different microservices. Interaction between microservices going via gateway. Product (entities) and their description keep in PostgreSQL and their pictures keep in MongoDB. Application can interact with user data via Keycloak that connected to one of the microservices and keep users in Active Directory (embedded in spring) and exchanged data via LDAP.
 
 
 ## Getting started
