@@ -6,7 +6,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 
+    password: postgres
     url: jdbc:postgresql://localhost:5432/project
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect

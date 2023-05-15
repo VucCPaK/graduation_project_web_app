@@ -12,12 +12,6 @@ repositories {
 	mavenCentral()
 }
 
-//dependencyManagement {
-//	imports {
-//		mavenBom 'org.keycloak.bom:keycloak-adapter-bom:12.0.3'
-//	}
-//}
-
 dependencies {
 	annotationProcessor "org.projectlombok:lombok"
 //	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
@@ -33,13 +27,16 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter'
 	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server
 	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose
+	// https://mvnrepository.com/artifact/com.paypal.sdk/rest-api-sdk
+//	implementation 'com.paypal.sdk:rest-api-sdk:1.14.0'
+
 
 
 //	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	implementation 'org.postgresql:postgresql:42.2.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'com.h2database:h2:1.4.197'
+//	implementation 'com.h2database:h2:1.4.197'
 
 	testAnnotationProcessor "org.projectlombok:lombok"
 	testCompileOnly "org.projectlombok:lombok"

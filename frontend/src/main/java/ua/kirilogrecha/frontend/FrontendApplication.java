@@ -18,9 +18,9 @@ public class FrontendApplication {
 		return builder.routes()
 				.route(p -> p
 						.path("/backend/**")
-						.filters(fs -> fs.rewritePath("/backend/(?<handle>.*)",
-								"/${handle}"
-						))
+						.filters(fs -> fs.rewritePath(
+								"/backend/(?<handle>.*)",
+								"/${handle}"))
 						.uri("http://localhost:8081/"))
 				.build();
 	}
