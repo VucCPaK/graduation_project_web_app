@@ -36,6 +36,10 @@ dependencies {
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	implementation 'org.postgresql:postgresql:42.2.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	implementation 'org.apache.poi:poi:5.2.3'
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
 //	implementation 'com.h2database:h2:1.4.197'
 
 	testAnnotationProcessor "org.projectlombok:lombok"

@@ -6,8 +6,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password:
-    url: jdbc:postgresql://postgresdb:5432/project
+    password: postgres
+    url: jdbc:postgresql://goods-postgres:5432/project
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:

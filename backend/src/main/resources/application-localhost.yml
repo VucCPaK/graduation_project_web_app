@@ -8,11 +8,13 @@ spring:
     username: postgres
     password: postgres
     url: jdbc:postgresql://localhost:5432/project
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
       ddl-auto: none
     show-sql: true
+
   security:
     oauth2:
       resourceserver:
